@@ -3625,6 +3625,27 @@
       </table>
       <description>This is the change in total ignition timing per cylinder based on RPM. It is not currently known which table corresponds to which cylinder, however it is suspected that table A corresponds to cylinder #1. When logging 'ignition timing' only cylinder A is monitored.</description>
     </table>
+    <table type="2D" name="Low Pulse Width Fuel Injector Compensation" category="Fueling - Injectors" storagetype="uint8" endian="big" sizey="8" storageaddress="0x592F8">
+      <scaling units="%" expression="(x*0.78125)-100" to_byte="(x+100)/0.78125" format="0.0" fineincrement="0.1" coarseincrement="1" />
+      <table type="Y Axis" name="Injector Pulse Width" storagetype="float" storageaddress="0x592D8">
+        <scaling units="msec" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.001" coarseincrement="0.05" />
+      </table>
+      <description>If the RPM and the current injector pulse width is below the thresholds then this compesation is applied, otherwies a compensation of 1 or 100% is used.</description>
+    </table>
+  <table type="2D" name="Low pulse width fuel injector compensation maximum RPM" category="Fueling - Injectors" storagetype="float" endian="big" sizey="1" storageaddress="0x58D7C">
+   <scaling units="RPM" expression="x" to_byte="x" format="0" fineincrement="5" coarseincrement="100" />
+   <table type="Static Y Axis" name="Enabled Below" sizey="1">
+    <data>Maximum</data>
+   </table>
+   <description>This is the maximum limit to use the Low Pulse Width Fuel Injector Compensation value.</description>
+  </table>
+  <table type="2D" name="Low pulse width fuel injector compensation maximum IPW" category="Fueling - Injectors" storagetype="float" endian="big" sizey="1" storageaddress="0x58D80">
+   <scaling units="msec" expression="x/1000" to_byte="x*1000" format="0.000" fineincrement="0.05" coarseincrement="0.1" />
+   <table type="Static Y Axis" name="Enabled Below" sizey="1">
+    <data>Maximum</data>
+   </table>
+   <description>This is the maximum limit to use the Low Pulse Width Fuel Injector Compensation value.</description>
+  </table>
     <table type="2D" name="Timing Compensation Per Cylinder C  " category="Ignition Timing - Compensation" storagetype="uint8" endian="big" sizey="14" userlevel="5">
       <scaling units="Ignition Timing Correction (degrees)" expression="(x*.3515625)-45" to_byte="(x+45)/.3515625" format="0.00" fineincrement=".2" coarseincrement="1" />
       <table type="Y Axis" name="Engine Speed" storagetype="float" endian="little" logparam="P8">
